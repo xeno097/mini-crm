@@ -4,6 +4,7 @@ import { AuthResolver } from './auth.resolver';
 import { AuthRepository } from './auth.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthEntity, AuthEntitySchema } from './database/auth.entity';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthEntity, AuthEntitySchema } from './database/auth.entity';
         schema: AuthEntitySchema,
       },
     ]),
+    UserModule,
   ],
   providers: [AuthResolver, AuthService, AuthRepository],
 })
