@@ -5,6 +5,7 @@ import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { EnvKey } from './config/enum/env-key.enum';
 import { validateConfig } from './config/validate/validate.config';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UserModule } from './user/user.module';
       autoSchemaFile: true,
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
