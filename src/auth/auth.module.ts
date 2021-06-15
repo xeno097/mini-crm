@@ -5,6 +5,7 @@ import { AuthRepository } from './auth.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthEntity, AuthEntitySchema } from './database/auth.entity';
 import { UserModule } from 'src/user/user.module';
+import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserModule } from 'src/user/user.module';
       },
     ]),
     UserModule,
+    CommonJwtModule,
   ],
   providers: [AuthResolver, AuthService, AuthRepository],
 })

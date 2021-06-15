@@ -6,6 +6,7 @@ import { EnvKey } from './config/enum/env-key.enum';
 import { validateConfig } from './config/validate/validate.config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { formatExpressGraphqlCtx } from './shared/graphql/utils/format-graphql-ctx.util';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
+      context: formatExpressGraphqlCtx,
     }),
     UserModule,
     AuthModule,
