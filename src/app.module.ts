@@ -7,6 +7,7 @@ import { validateConfig } from './config/validate/validate.config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { formatExpressGraphqlCtx } from './shared/graphql/utils/format-graphql-ctx.util';
+import { CountryModule } from './country/country.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { formatExpressGraphqlCtx } from './shared/graphql/utils/format-graphql-c
     }),
     UserModule,
     AuthModule,
+    CountryModule,
   ],
   controllers: [],
   providers: [],
