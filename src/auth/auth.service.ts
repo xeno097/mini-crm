@@ -76,9 +76,17 @@ export class AuthService {
     return [null, authResult];
   }
 
-  private generateJwt(jwtPayloadDto: JwtPayloadDto): [Error, string] {
+  private generateJwt(userDto: UserDto): [Error, string] {
     try {
-      const jwt = this.jwtService.sign(jwtPayloadDto);
+      const { id, email, role } = userDto;
+
+      const jwtPayload: JwtPayloadDto = {
+        id,
+        email,
+        role,
+      };
+
+      const jwt = this.jwtService.sign(jwtPayload);
 
       return [null, jwt];
     } catch (error) {
