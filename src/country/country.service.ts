@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { FilterDto } from 'src/shared/dto/filter.dto';
 import { CountryRepository } from './country.repository';
 import { CountryDto } from './dto/country.dto';
 import { CreateCountryDto } from './dto/create-country.dto';
@@ -16,8 +17,10 @@ export class CountryService {
     return country;
   }
 
-  public async getCountries(): Promise<[Error, CountryDto[]]> {
-    const countries = await this.countryRepository.getEntities();
+  public async getCountries(
+    filterDto: FilterDto,
+  ): Promise<[Error, CountryDto[]]> {
+    const countries = await this.countryRepository.getEntities(filterDto);
 
     return countries;
   }

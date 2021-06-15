@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { FilterDto } from 'src/shared/dto/filter.dto';
+import { queryBuilder } from 'src/shared/function/filter/query-builder.function';
 import { CountryEntity } from './database/country.entity';
 import { CountryDto } from './dto/country.dto';
 import { CreateCountryDto } from './dto/create-country.dto';
@@ -39,9 +41,11 @@ export class CountryRepository {
     }
   }
 
-  public async getEntities(filter = {}): Promise<[Error, CountryDto[]]> {
+  public async getEntities(
+    filterDto: FilterDto,
+  ): Promise<[Error, CountryDto[]]> {
     try {
-      const entities = await this.countryModel.find();
+      const entities = await queryBuilder(filterDto, this.countryModel);
 
       const res: CountryDto[] = entities.map(entity => {
         return CountryEntity.toDto(entity);

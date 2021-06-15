@@ -3,6 +3,7 @@ import { UserDto } from './dto/user/user.dto';
 import { CreateUserDto } from './dto/user/create-user.dto';
 import { UserRepository } from './user.repository';
 import { UpdateUserDto } from './dto/user/update-user.dto';
+import { FilterDto } from 'src/shared/dto/filter.dto';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,8 @@ export class UserService {
     return user;
   }
 
-  public async getUsers(): Promise<[Error, UserDto[]]> {
-    const users = await this.userRepository.getEntities();
+  public async getUsers(input: FilterDto = {}): Promise<[Error, UserDto[]]> {
+    const users = await this.userRepository.getEntities(input);
 
     return users;
   }
