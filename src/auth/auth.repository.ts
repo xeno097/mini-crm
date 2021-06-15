@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 import { UserEntity } from 'src/user/database/user.entity';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { UserDto } from 'src/user/dto/user.dto';
 import { AuthEntity } from './database/auth.entity';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from 'src/user/dto/user/create-user.dto';
+import { UserDto } from 'src/user/dto/user/user.dto';
 
 @Injectable()
 export class AuthRepository {

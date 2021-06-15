@@ -4,7 +4,7 @@ import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorato
 import { idFieldOptions } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/user/update-user.dto';
 import { Role } from './enum/role.enum';
 import { UpdateUserInputType } from './graphql/input-type/update-user.input-type';
 import { UserType } from './graphql/object-type/user.object-type';

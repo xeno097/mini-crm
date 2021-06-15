@@ -1,4 +1,4 @@
-import { IUpdateAddressPayloadDto } from '../interface/dto/address/update-address-payload-dto.interface';
+import { IUpdateAddressPayloadDto } from 'src/user/interface/dto/address/update-address-payload-dto.interface';
 
 export class UpdateAddressPayload implements IUpdateAddressPayloadDto {
   country?: string;
