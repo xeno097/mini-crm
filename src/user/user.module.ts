@@ -15,5 +15,6 @@ import { UserEntity, UserEntitySchema } from './database/user.entity';
     ]),
   ],
   providers: [UserResolver, UserService, UserRepository],
+  exports: [MongooseModule],
 })
 export class UserModule {}
