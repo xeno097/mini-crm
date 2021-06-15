@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { Role } from 'src/user/enum/role.enum';
-import { IUpdateUserPayloadInput } from 'src/user/interface/input-type/update-user-payload-input-type.interface';
+import { IUpdateUserPayloadInput } from 'src/user/interface/input-type/user/update-user-payload-input-type.interface';
 
 @InputType()
 export class UpdateUserPayloadInput implements IUpdateUserPayloadInput {
