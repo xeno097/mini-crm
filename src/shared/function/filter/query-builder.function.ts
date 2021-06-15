@@ -5,7 +5,6 @@ export const queryBuilder = async <T>(
   filterInputDto: FilterDto,
   entityModel: Model<T>,
 ): Promise<T[]> => {
-  console.log(filterInputDto);
   const { limit, start, filter } = filterInputDto;
 
   const queryBuilder = entityModel.find();
