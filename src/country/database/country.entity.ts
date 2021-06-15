@@ -17,6 +17,16 @@ export class CountryEntity extends Document
 
   @Prop({ required: true, unique: true })
   slug: string;
+
+  static toDto(input: CountryEntity) {
+    const { id, name, slug } = input;
+
+    return {
+      id,
+      name,
+      slug,
+    };
+  }
 }
 
 export const CountryEntitySchema = SchemaFactory.createForClass(CountryEntity);
