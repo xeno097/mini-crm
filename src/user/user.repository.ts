@@ -5,6 +5,8 @@ import { UserEntity } from './database/user.entity';
 import { UserDto } from './dto/user/user.dto';
 import { CreateUserDto } from './dto/user/create-user.dto';
 import { UpdateUserDto } from './dto/user/update-user.dto';
+import { queryBuilder } from 'src/shared/function/filter/query-builder.function';
+import { FilterDto } from 'src/shared/dto/filter.dto';
 
 @Injectable()
 export class UserRepository {
@@ -38,9 +40,9 @@ export class UserRepository {
     }
   }
 
-  public async getEntities(filter = {}): Promise<[Error, UserDto[]]> {
+  public async getEntities(filterDto: FilterDto): Promise<[Error, UserDto[]]> {
     try {
-      const entities = await this.userModel.find();
+      const entities = await queryBuilder(filterDto, this.userModel);
 
       const res: UserDto[] = entities.map(entity => {
         return UserEntity.toDto(entity);

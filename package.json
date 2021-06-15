@@ -33,6 +33,7 @@
     "bcrypt": "^5.0.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.5",
+    "graphql-type-json": "^0.3.2",
     "joi": "^17.4.0",
     "mongoose": "^5.12.13",
     "reflect-metadata": "^0.1.13",

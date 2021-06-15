@@ -1,8 +1,12 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorator';
-import { idFieldOptions } from 'src/shared/graphql/constants.graphql';
+import {
+  filterInputOptions,
+  idFieldOptions,
+} from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
+import { FilterInput } from 'src/shared/graphql/input-type/filter.input-type';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { UpdateUserDto } from './dto/user/update-user.dto';
 import { Role } from './enum/role.enum';
@@ -31,8 +35,10 @@ export class UserResolver {
 
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
-  public async getUsers(): Promise<UserType[]> {
-    const [err, users] = await this.userService.getUsers();
+  public async getUsers(
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInput = {},
+  ): Promise<UserType[]> {
+    const [err, users] = await this.userService.getUsers(input);
 
     if (err) {
       throw err;
