@@ -4,6 +4,7 @@ import { UserResolver } from './user.resolver';
 import { UserRepository } from './user.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserEntity, UserEntitySchema } from './database/user.entity';
+import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
 
 @Module({
   imports: [
@@ -13,7 +14,9 @@ import { UserEntity, UserEntitySchema } from './database/user.entity';
         schema: UserEntitySchema,
       },
     ]),
+    CommonJwtModule,
   ],
   providers: [UserResolver, UserService, UserRepository],
+  exports: [MongooseModule],
 })
 export class UserModule {}

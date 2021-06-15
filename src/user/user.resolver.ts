@@ -1,17 +1,22 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorator';
 import { idFieldOptions } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
+import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateUserInputType } from './graphql/input-type/create-user.input-type';
+import { Role } from './enum/role.enum';
 import { UpdateUserInputType } from './graphql/input-type/update-user.input-type';
 import { UserType } from './graphql/object-type/user.object-type';
 import { UserService } from './user.service';
 
 @Resolver()
+@UseGuards(GqlAuthGuard)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => UserType)
+  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
   public async getUserById(
     @Args(InputName.ID, idFieldOptions) id: string,
   ): Promise<UserType> {
@@ -25,6 +30,7 @@ export class UserResolver {
   }
 
   @Query(() => [UserType])
+  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
   public async getUsers(): Promise<UserType[]> {
     const [err, users] = await this.userService.getUsers();
 
@@ -36,19 +42,7 @@ export class UserResolver {
   }
 
   @Mutation(() => UserType)
-  public async createUser(
-    @Args(InputName.INPUT) input: CreateUserInputType,
-  ): Promise<UserType> {
-    const [err, user] = await this.userService.createUser(input);
-
-    if (err) {
-      throw err;
-    }
-
-    return user;
-  }
-
-  @Mutation(() => UserType)
+  @AuthorizedRoles(Role.ADMIN)
   public async updateUser(
     @Args(InputName.INPUT) input: UpdateUserInputType,
   ): Promise<UserType> {
@@ -69,6 +63,7 @@ export class UserResolver {
   }
 
   @Mutation(() => UserType)
+  @AuthorizedRoles(Role.ADMIN)
   public async deleteUserById(
     @Args(InputName.ID, idFieldOptions) id: string,
   ): Promise<UserType> {
