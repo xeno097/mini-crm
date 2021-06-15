@@ -2,4 +2,5 @@ import { IUpdateAuthPayloadDto } from '../interface/dto/update-auth-payload-dto.
 
 export class UpdateAuthPayloadDto implements IUpdateAuthPayloadDto {
   password: string;
+  oldPassword: string;
 }
