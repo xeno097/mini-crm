@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { IUserType } from 'src/user/interface/object-type/user-object-type.interface';
+import { AddressType } from './address.object-type';
 
 export const UserTypeName = 'User';
 
@@ -16,4 +17,7 @@ export class UserType implements IUserType {
 
   @Field()
   email: string;
+
+  @Field(() => [AddressType])
+  addresses: AddressType[];
 }

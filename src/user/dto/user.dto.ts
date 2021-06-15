@@ -1,3 +1,4 @@
+import { AddressObject } from '../database/address.object';
 import { Role } from '../enum/role.enum';
 import { IUserDto } from '../interface/dto/user-dto.interface';
 
@@ -8,4 +9,5 @@ export class UserDto implements IUserDto {
   email: string;
   role: Role;
   blocked: boolean;
+  addresses: AddressObject[];
 }
