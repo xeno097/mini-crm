@@ -1,4 +1,4 @@
-import { IAddressDto } from '../interface/dto/address-dto.interface';
+import { IAddressDto } from 'src/user/interface/dto/address/address-dto.interface';
 
 export class AddressDto implements IAddressDto {
   id: string;

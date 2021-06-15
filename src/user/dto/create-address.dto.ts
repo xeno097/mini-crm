@@ -1,4 +1,4 @@
-import { ICreateAddressDto } from '../interface/dto/create-address-dto.interface';
+import { ICreateAddressDto } from '../interface/dto/address/create-address-dto.interface';
 
 export class CreateAddressDto implements ICreateAddressDto {
   country: string;

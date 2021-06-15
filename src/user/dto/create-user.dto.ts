@@ -1,5 +1,5 @@
 import { Role } from '../enum/role.enum';
-import { ICreateUserDto } from '../interface/dto/create-user-dto.interface';
+import { ICreateUserDto } from '../interface/dto/user/create-user-dto.interface';
 
 export class CreateUserDto implements ICreateUserDto {
   name: string;

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { CountryRepository } from 'src/country/country.repository';
 import { AddressObject } from './database/address.object';
-import { AddressDto } from './dto/address.dto';
+import { AddressDto } from './dto/address/address.dto';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
 import { UpdateUserDto } from './dto/update-user.dto';

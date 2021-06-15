@@ -1,6 +1,6 @@
 import { AddressObject } from '../database/address.object';
 import { Role } from '../enum/role.enum';
-import { IUpdateUserPayloadDto } from '../interface/dto/update-user-dto.interface';
+import { IUpdateUserPayloadDto } from '../interface/dto/user/update-user-dto.interface';
 
 export class UpdateUserPayloadDto implements IUpdateUserPayloadDto {
   blocked?: boolean;
