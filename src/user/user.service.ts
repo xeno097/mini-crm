@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/user/create-user.dto';
 import { UserRepository } from './user.repository';
 import { UpdateUserDto } from './dto/user/update-user.dto';
 import { FilterDto } from 'src/shared/dto/filter.dto';
+import { Role } from './enum/role.enum';
 
 @Injectable()
 export class UserService {
@@ -47,5 +48,23 @@ export class UserService {
     );
 
     return deletedUser;
+  }
+
+  // Business Logic
+  public async getClients(filterDto: FilterDto): Promise<[Error, UserDto[]]> {
+    const { filter, limit, start } = filterDto;
+
+    const newFilterDto: FilterDto = {
+      limit,
+      start,
+      filter: {
+        ...filter,
+        role: Role.CLIENT,
+      },
+    };
+
+    const users = await this.userRepository.getEntities(newFilterDto);
+
+    return users;
   }
 }

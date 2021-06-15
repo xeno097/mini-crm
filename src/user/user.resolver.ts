@@ -36,7 +36,7 @@ export class UserResolver {
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
   public async getUsers(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput = {},
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getUsers(input);
 
@@ -80,5 +80,20 @@ export class UserResolver {
     }
 
     return user;
+  }
+
+  // Business Logic
+  @Query(() => [UserType])
+  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
+  public async getClients(
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+  ): Promise<UserType[]> {
+    const [err, users] = await this.userService.getClients(input);
+
+    if (err) {
+      throw err;
+    }
+
+    return users;
   }
 }
