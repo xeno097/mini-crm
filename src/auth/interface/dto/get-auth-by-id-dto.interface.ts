@@ -1,3 +1,3 @@
-export interface IGetAuthByIdDto {
+export interface IGetAuthByEmailDto {
   email: string;
 }

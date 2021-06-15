@@ -1,5 +1,5 @@
-import { IGetAuthByIdDto } from '../interface/dto/get-auth-by-id-dto.interface';
+import { IGetAuthByEmailDto } from '../interface/dto/get-auth-by-id-dto.interface';
 
-export class GetAuthByEmailDto implements IGetAuthByIdDto {
+export class GetAuthByEmailDto implements IGetAuthByEmailDto {
   email: string;
 }
