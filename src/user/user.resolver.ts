@@ -6,7 +6,6 @@ import { InputName } from 'src/shared/graphql/enum/input-name.enum';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Role } from './enum/role.enum';
-import { CreateUserInputType } from './graphql/input-type/create-user.input-type';
 import { UpdateUserInputType } from './graphql/input-type/update-user.input-type';
 import { UserType } from './graphql/object-type/user.object-type';
 import { UserService } from './user.service';
@@ -41,19 +40,6 @@ export class UserResolver {
 
     return users;
   }
-
-  // @Mutation(() => UserType)
-  // public async createUser(
-  //   @Args(InputName.INPUT) input: CreateUserInputType,
-  // ): Promise<UserType> {
-  //   const [err, user] = await this.userService.createUser(input);
-
-  //   if (err) {
-  //     throw err;
-  //   }
-
-  //   return user;
-  // }
 
   @Mutation(() => UserType)
   @AuthorizedRoles(Role.ADMIN)
