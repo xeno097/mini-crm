@@ -34,7 +34,7 @@ export class UserResolver {
   }
 
   @Query(() => [UserType])
-  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
+  @AuthorizedRoles(Role.ADMIN)
   public async getUsers(
     @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
   ): Promise<UserType[]> {
@@ -89,6 +89,20 @@ export class UserResolver {
     @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getClients(input);
+
+    if (err) {
+      throw err;
+    }
+
+    return users;
+  }
+
+  @Query(() => [UserType])
+  @AuthorizedRoles(Role.ADMIN)
+  public async getCustomerCare(
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+  ): Promise<UserType[]> {
+    const [err, users] = await this.userService.getCustomerCare(input);
 
     if (err) {
       throw err;

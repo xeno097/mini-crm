@@ -67,4 +67,23 @@ export class UserService {
 
     return users;
   }
+
+  public async getCustomerCare(
+    filterDto: FilterDto,
+  ): Promise<[Error, UserDto[]]> {
+    const { filter, limit, start } = filterDto;
+
+    const newFilterDto: FilterDto = {
+      limit,
+      start,
+      filter: {
+        ...filter,
+        role: Role.CUSTOMER_CARE,
+      },
+    };
+
+    const users = await this.userRepository.getEntities(newFilterDto);
+
+    return users;
+  }
 }
