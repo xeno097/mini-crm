@@ -7,8 +7,8 @@ import { InputName } from 'src/shared/graphql/enum/input-name.enum';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { AddressService } from './address.service';
 import { UpdateAddressDto } from './dto/address/update-address.dto';
-import { CreateAddressInputType } from './graphql/input-type/create-address.input-type';
-import { UpdateAddressInputType } from './graphql/input-type/update-address.input-type';
+import { CreateAddressInputType } from './graphql/input-type/address/create-address.input-type';
+import { UpdateAddressInputType } from './graphql/input-type/address/update-address.input-type';
 import { AddressType } from './graphql/object-type/address.object-type';
 
 @Resolver()
