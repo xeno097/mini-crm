@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { IBaseEntity } from 'src/shared/interfaces/base-entity.interface';
-import { UserDto } from '../dto/user.dto';
+import { UserDto } from '../dto/user/user.dto';
 import { Role } from '../enum/role.enum';
 import { IUserEntity } from '../interface/database/user-entity.interface';
 import { AddressObject } from './address.object';

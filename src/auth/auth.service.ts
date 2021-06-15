@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserDto } from 'src/user/dto/user.dto';
+import { UserDto } from 'src/user/dto/user/user.dto';
 import { Role } from 'src/user/enum/role.enum';
 import { AuthRepository } from './auth.repository';
 import { AuthResultDto } from './dto/auth-result.dto';

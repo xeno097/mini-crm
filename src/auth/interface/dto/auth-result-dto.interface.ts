@@ -1,4 +1,4 @@
-import { IUserDto } from 'src/user/interface/dto/user-dto.interface';
+import { IUserDto } from 'src/user/interface/dto/user/user-dto.interface';
 
 export interface IAuthResultDto {
   jwt: string;

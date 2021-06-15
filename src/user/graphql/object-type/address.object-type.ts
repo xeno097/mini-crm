@@ -15,6 +15,6 @@ export class AddressType implements IAddressType {
   @Field()
   postalCode: string;
 
-  @Field()
+  @Field({ nullable: true })
   info: string;
 }
