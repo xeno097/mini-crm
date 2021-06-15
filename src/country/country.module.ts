@@ -4,6 +4,7 @@ import { CountryResolver } from './country.resolver';
 import { CountryRepository } from './country.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CountryEntity, CountryEntitySchema } from './database/country.entity';
+import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CountryEntity, CountryEntitySchema } from './database/country.entity';
         schema: CountryEntitySchema,
       },
     ]),
+    CommonJwtModule,
   ],
   providers: [CountryResolver, CountryService, CountryRepository],
   exports: [MongooseModule],
