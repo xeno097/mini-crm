@@ -5,6 +5,9 @@ import { UserRepository } from './user.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserEntity, UserEntitySchema } from './database/user.entity';
 import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
+import { AddressResolver } from './address.resolver';
+import { AddressService } from './address.service';
+import { CountryModule } from 'src/country/country.module';
 
 @Module({
   imports: [
@@ -15,8 +18,15 @@ import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
       },
     ]),
     CommonJwtModule,
+    CountryModule,
   ],
-  providers: [UserResolver, UserService, UserRepository],
+  providers: [
+    UserResolver,
+    AddressResolver,
+    UserService,
+    AddressService,
+    UserRepository,
+  ],
   exports: [MongooseModule],
 })
 export class UserModule {}
