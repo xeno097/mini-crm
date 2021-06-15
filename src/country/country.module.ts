@@ -17,6 +17,6 @@ import { CommonJwtModule } from 'src/common-jwt/common-jwt.module';
     CommonJwtModule,
   ],
   providers: [CountryResolver, CountryService, CountryRepository],
-  exports: [MongooseModule],
+  exports: [MongooseModule, CountryRepository],
 })
 export class CountryModule {}
