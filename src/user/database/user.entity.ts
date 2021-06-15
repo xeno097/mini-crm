@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IBaseEntity } from 'src/shared/interfaces/base-entity.interface';
+import { UserDto } from '../dto/user.dto';
 import { Role } from '../enum/role.enum';
 import { IUserEntity } from '../interface/database/user-entity.interface';
 
@@ -25,6 +26,19 @@ export class UserEntity extends Document implements IBaseEntity, IUserEntity {
 
   @Prop({ default: false })
   blocked: boolean;
+
+  static toDto(input: UserEntity): UserDto {
+    const { blocked, email, id, lastName, name, role } = input;
+
+    return {
+      blocked,
+      email,
+      id,
+      lastName,
+      name,
+      role,
+    };
+  }
 }
 
 const UserEntitySchema = SchemaFactory.createForClass(UserEntity);
