@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { EnvKey } from './config/enum/env-key.enum';
 import { validateConfig } from './config/validate/validate.config';
@@ -23,6 +24,9 @@ import { UserModule } from './user/user.module';
           useFindAndModify: false,
         };
       },
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
     }),
     UserModule,
   ],
