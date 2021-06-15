@@ -4,6 +4,7 @@ import { IBaseEntity } from 'src/shared/interfaces/base-entity.interface';
 import { UserDto } from '../dto/user.dto';
 import { Role } from '../enum/role.enum';
 import { IUserEntity } from '../interface/database/user-entity.interface';
+import { AddressObject } from './address.object';
 
 @Schema({
   collection: 'user',
@@ -28,8 +29,11 @@ export class UserEntity extends Document implements IBaseEntity, IUserEntity {
   @Prop({ default: false })
   blocked: boolean;
 
+  @Prop({ default: [] })
+  addresses: AddressObject[];
+
   static toDto(input: UserEntity): UserDto {
-    const { blocked, email, id, lastName, name, role } = input;
+    const { blocked, email, id, lastName, name, role, addresses } = input;
 
     return {
       blocked,
@@ -38,6 +42,7 @@ export class UserEntity extends Document implements IBaseEntity, IUserEntity {
       lastName,
       name,
       role,
+      addresses,
     };
   }
 }
