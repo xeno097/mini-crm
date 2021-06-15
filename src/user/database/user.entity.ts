@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { IBaseEntity } from 'src/shared/interfaces/base-entity.interface';
 import { UserDto } from '../dto/user.dto';
 import { Role } from '../enum/role.enum';
@@ -41,7 +42,7 @@ export class UserEntity extends Document implements IBaseEntity, IUserEntity {
   }
 }
 
-const UserEntitySchema = SchemaFactory.createForClass(UserEntity);
+export const UserEntitySchema = SchemaFactory.createForClass(UserEntity);
 
 UserEntitySchema.pre('validate', function(next) {
   if (this.isNew) {
