@@ -70,20 +70,6 @@ export class UserResolver {
     return user;
   }
 
-  @Mutation(() => UserType)
-  @AuthorizedRoles(Role.ADMIN)
-  public async deleteUserById(
-    @Args(InputName.ID, idFieldOptions) id: string,
-  ): Promise<UserType> {
-    const [err, user] = await this.userService.deleteOneUser({ id });
-
-    if (err) {
-      throw err;
-    }
-
-    return user;
-  }
-
   // Business Logic
   @Query(() => UserType)
   public async getLoggedUser(

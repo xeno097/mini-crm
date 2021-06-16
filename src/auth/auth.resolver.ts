@@ -2,6 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorator';
 import { GqlJwtPayload } from 'src/shared/decorators/jwt-payload.decorator';
+import { idFieldOptions } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { Role } from 'src/user/enum/role.enum';
@@ -86,5 +87,20 @@ export class AuthResolver {
     }
 
     return res;
+  }
+
+  @Mutation(() => UserType)
+  @UseGuards(GqlAuthGuard)
+  @AuthorizedRoles(Role.ADMIN)
+  public async deleteUserById(
+    @Args(InputName.ID, idFieldOptions) id: string,
+  ): Promise<UserType> {
+    const [err, user] = await this.authService.deleteOneUser({ id });
+
+    if (err) {
+      throw err;
+    }
+
+    return user;
   }
 }

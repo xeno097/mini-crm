@@ -120,4 +120,30 @@ export class AuthRepository {
 
     return res;
   }
+
+  public async deleteOneUser(
+    getOneEntityDto: Record<string, any>,
+  ): Promise<[Error, UserDto]> {
+    const transaction = await this.connection.startSession();
+    try {
+      const user = await this.userModel.findOne(getOneEntityDto);
+
+      if (!user) {
+        return [new Error('User not found'), null];
+      }
+
+      await user.delete({ session: transaction });
+
+      await this.authModel.deleteOne({ email: user.email });
+
+      const res = UserEntity.toDto(user);
+
+      return [null, res];
+    } catch (error) {
+      await transaction.abortTransaction();
+      return [error, null];
+    } finally {
+      transaction.endSession();
+    }
+  }
 }

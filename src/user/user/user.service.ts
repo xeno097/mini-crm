@@ -40,16 +40,6 @@ export class UserService {
     return updatedUser;
   }
 
-  public async deleteOneUser(
-    getOneEntityDto: Record<string, any>,
-  ): Promise<[Error, UserDto]> {
-    const deletedUser = await this.userRepository.deleteOneEntity(
-      getOneEntityDto,
-    );
-
-    return deletedUser;
-  }
-
   // Business Logic
   public async getClients(filterDto: FilterDto): Promise<[Error, UserDto[]]> {
     const { filter, limit, start } = filterDto;

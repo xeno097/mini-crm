@@ -101,4 +101,14 @@ export class AuthService {
 
     return res;
   }
+
+  public async deleteOneUser(
+    getOneEntityDto: Record<string, any>,
+  ): Promise<[Error, UserDto]> {
+    const deletedUser = await this.authRepository.deleteOneUser(
+      getOneEntityDto,
+    );
+
+    return deletedUser;
+  }
 }

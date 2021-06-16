@@ -89,20 +89,4 @@ export class UserRepository {
       return [error, null];
     }
   }
-
-  public async deleteOneEntity(
-    getOneEntityDto: Record<string, any>,
-  ): Promise<[Error, UserDto]> {
-    try {
-      const entity = await this._getOneEntity(getOneEntityDto);
-
-      await entity.delete();
-
-      const res = UserEntity.toDto(entity);
-
-      return [null, res];
-    } catch (error) {
-      return [error, null];
-    }
-  }
 }
