@@ -135,6 +135,10 @@ export class AddressService {
       return check;
     });
 
+    if (!deletedAddress) {
+      return [new Error('Address not found'), null];
+    }
+
     const [updateAddressErr] = await this._updateAddresses(userId, [
       ...updatedAddresses,
     ]);

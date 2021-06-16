@@ -1,6 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { JwtPayloadDto } from 'src/auth/dto/jwt-payload.dto';
 import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorator';
+import { GqlJwtPayload } from 'src/shared/decorators/jwt-payload.decorator';
 import {
   filterInputOptions,
   idFieldOptions,
@@ -83,6 +85,20 @@ export class UserResolver {
   }
 
   // Business Logic
+  @Query(() => UserType)
+  public async getLoggedUser(
+    @GqlJwtPayload() jwtPayloadDto: JwtPayloadDto,
+  ): Promise<UserType> {
+    const { id } = jwtPayloadDto;
+    const [err, user] = await this.userService.getOneUser({ id });
+
+    if (err) {
+      throw err;
+    }
+
+    return user;
+  }
+
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
   public async getClients(
