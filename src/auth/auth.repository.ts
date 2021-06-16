@@ -33,6 +33,7 @@ export class AuthRepository {
   public async signUp(signUpDto: SignUpDto): Promise<[Error, UserDto]> {
     const transaction = await this.connection.startSession();
     try {
+      transaction.startTransaction();
       const { email, password, name, lastName, role } = signUpDto;
 
       const newAuth = new this.authModel({ email, password });
@@ -128,6 +129,7 @@ export class AuthRepository {
   ): Promise<[Error, UserDto]> {
     const transaction = await this.connection.startSession();
     try {
+      transaction.startTransaction();
       const user = await this.userModel.findOne(getOneEntityDto);
 
       if (!user) {
