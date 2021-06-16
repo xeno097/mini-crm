@@ -83,7 +83,7 @@ export class CountryRepository {
 
       entityToUpdate.set(updateEntityPayload);
 
-      await entityToUpdate.save({ validateBeforeSave: true });
+      await entityToUpdate.save();
 
       const res = CountryEntity.toDto(entityToUpdate);
 

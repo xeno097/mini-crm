@@ -6,9 +6,9 @@ import { AuthEntity } from './database/auth.entity';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/user/dto/user/create-user.dto';
 import { UserDto } from 'src/user/dto/user/user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthRepository {
@@ -35,9 +35,7 @@ export class AuthRepository {
     try {
       const { email, password, name, lastName, role } = signInDto;
 
-      const hashedPassword = await this.hashPassword(password);
-
-      const newAuth = new this.authModel({ email, password: hashedPassword });
+      const newAuth = new this.authModel({ email, password });
 
       await newAuth.save({ session: transaction });
 
@@ -104,9 +102,7 @@ export class AuthRepository {
         throw new Error('Unauthorized');
       }
 
-      const hashedPassword = await this.hashPassword(password);
-
-      entityToUpdate.set({ password: hashedPassword });
+      entityToUpdate.set({ password: password });
 
       await entityToUpdate.save();
 
@@ -114,12 +110,6 @@ export class AuthRepository {
     } catch (error) {
       return [error, null];
     }
-  }
-
-  private async hashPassword(password: string): Promise<string> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    return hashedPassword;
   }
 
   private async comparePassword(
