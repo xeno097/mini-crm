@@ -30,10 +30,10 @@ export class AuthRepository {
     return entity;
   }
 
-  public async signUp(signInDto: SignUpDto): Promise<[Error, UserDto]> {
+  public async signUp(signUpDto: SignUpDto): Promise<[Error, UserDto]> {
     const transaction = await this.connection.startSession();
     try {
-      const { email, password, name, lastName, role } = signInDto;
+      const { email, password, name, lastName, role } = signUpDto;
 
       const newAuth = new this.authModel({ email, password });
 
