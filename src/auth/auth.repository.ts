@@ -52,6 +52,8 @@ export class AuthRepository {
 
       const res = UserEntity.toDto(newUser);
 
+      await transaction.commitTransaction();
+
       return [null, res];
     } catch (error) {
       await transaction.abortTransaction();
@@ -134,9 +136,14 @@ export class AuthRepository {
 
       await user.delete({ session: transaction });
 
-      await this.authModel.deleteOne({ email: user.email });
+      await this.authModel.deleteOne(
+        { email: user.email },
+        { session: transaction },
+      );
 
       const res = UserEntity.toDto(user);
+
+      await transaction.commitTransaction();
 
       return [null, res];
     } catch (error) {
