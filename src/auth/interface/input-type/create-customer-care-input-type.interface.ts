@@ -1,4 +1,4 @@
-export interface CreateCustomerCareInputType {
+export interface ICreateCustomerCareInputType {
   email: string;
   password: string;
   name: string;

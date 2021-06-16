@@ -2,7 +2,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { IUserType } from 'src/user/interface/object-type/user-object-type.interface';
 import { AddressType } from './address.object-type';
 
-export const UserTypeName = 'User';
+const UserTypeName = 'User';
 
 @ObjectType(UserTypeName)
 export class UserType implements IUserType {

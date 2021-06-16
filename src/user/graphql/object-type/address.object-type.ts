@@ -1,7 +1,9 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { IAddressType } from 'src/user/interface/object-type/address-object-type.interface';
 
-@ObjectType()
+const AddressTypeName = 'Address';
+
+@ObjectType(AddressTypeName)
 export class AddressType implements IAddressType {
   @Field(() => ID)
   id: string;

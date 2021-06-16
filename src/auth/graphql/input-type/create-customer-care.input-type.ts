@@ -1,8 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { CreateCustomerCareInputType } from 'src/auth/interface/input-type/create-customer-care-input-type.interface';
+import { ICreateCustomerCareInputType } from 'src/auth/interface/input-type/create-customer-care-input-type.interface';
 
-@InputType()
-export class CreateCustomerCare implements CreateCustomerCareInputType {
+const CreateCustomerCareInputTypeName = 'CreateCustomerCareInput';
+
+@InputType(CreateCustomerCareInputTypeName)
+export class CreateCustomerCareInputType
+  implements ICreateCustomerCareInputType {
   @Field()
   email: string;
 

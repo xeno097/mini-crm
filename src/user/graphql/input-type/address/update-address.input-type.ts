@@ -3,7 +3,9 @@ import { GetEntityByIdInputType } from 'src/shared/graphql/input-type/get-entity
 import { IUpdateEntityInputType } from 'src/shared/graphql/interface/input-types/update-entity-input-type.interface';
 import { UpdateAddressPayloadInputType } from './update-address-payload.input-type';
 
-@InputType()
+const UpdateAddressInputTypeName = 'UpdateAddressInput';
+
+@InputType(UpdateAddressInputTypeName)
 export class UpdateAddressInputType implements IUpdateEntityInputType {
   @Field()
   where: GetEntityByIdInputType;

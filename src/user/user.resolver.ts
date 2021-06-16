@@ -6,7 +6,7 @@ import {
   idFieldOptions,
 } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
-import { FilterInput } from 'src/shared/graphql/input-type/filter.input-type';
+import { FilterInputType } from 'src/shared/graphql/input-type/filter.input-type';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { UpdateUserDto } from './dto/user/update-user.dto';
 import { Role } from './enum/role.enum';
@@ -36,7 +36,7 @@ export class UserResolver {
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN)
   public async getUsers(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getUsers(input);
 
@@ -86,7 +86,7 @@ export class UserResolver {
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
   public async getClients(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getClients(input);
 
@@ -100,7 +100,7 @@ export class UserResolver {
   @Query(() => [UserType])
   @AuthorizedRoles(Role.ADMIN)
   public async getCustomerCare(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getCustomerCare(input);
 

@@ -1,9 +1,11 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
-import { IFilterInput } from '../interface/input-types/filter-input-type.interface';
+import { IFilterInputType } from '../interface/input-types/filter-input-type.interface';
 
-@InputType()
-export class FilterInput implements IFilterInput {
+const FilterInputTypeName = 'FilterInput';
+
+@InputType(FilterInputTypeName)
+export class FilterInputType implements IFilterInputType {
   @Field(() => Int, { nullable: true, defaultValue: 0 })
   start?: number = 0;
 

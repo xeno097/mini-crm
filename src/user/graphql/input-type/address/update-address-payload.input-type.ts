@@ -1,7 +1,9 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
 import { IUpdateAddressPayloadInputType } from 'src/user/interface/input-type/address/update-address-payload-input-type.interface';
 
-@InputType()
+const UpdateAddressPayloadInputTypeName = 'UpdateAddressPayloadInput';
+
+@InputType(UpdateAddressPayloadInputTypeName)
 export class UpdateAddressPayloadInputType
   implements IUpdateAddressPayloadInputType {
   @Field(() => ID, { nullable: true })
