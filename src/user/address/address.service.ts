@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { CountryRepository } from 'src/country/country.repository';
-import { AddressObject } from './database/address.object';
-import { AddressDto } from './dto/address/address.dto';
-import { CreateAddressDto } from './dto/address/create-address.dto';
-import { UpdateAddressDto } from './dto/address/update-address.dto';
-import { UpdateUserDto } from './dto/user/update-user.dto';
-import { UserRepository } from './user.repository';
+import { AddressObject } from '../database/address.object';
+import { AddressDto } from '../dto/address/address.dto';
+import { CreateAddressDto } from '../dto/address/create-address.dto';
+import { UpdateAddressDto } from '../dto/address/update-address.dto';
+import { UpdateUserDto } from '../dto/user/update-user.dto';
+import { UserRepository } from '../user/user.repository';
 
 @Injectable()
 export class AddressService {

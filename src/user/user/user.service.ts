@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user/user.dto';
-import { CreateUserDto } from './dto/user/create-user.dto';
+import { UserDto } from '../dto/user/user.dto';
+import { CreateUserDto } from '../dto/user/create-user.dto';
 import { UserRepository } from './user.repository';
-import { UpdateUserDto } from './dto/user/update-user.dto';
+import { UpdateUserDto } from '../dto/user/update-user.dto';
 import { FilterDto } from 'src/shared/dto/filter.dto';
-import { Role } from './enum/role.enum';
+import { Role } from '../enum/role.enum';
 
 @Injectable()
 export class UserService {

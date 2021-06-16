@@ -8,10 +8,10 @@ import {
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
 import { FilterInputType } from 'src/shared/graphql/input-type/filter.input-type';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
-import { UpdateUserDto } from './dto/user/update-user.dto';
-import { Role } from './enum/role.enum';
-import { UpdateUserInputType } from './graphql/input-type/user/update-user.input-type';
-import { UserType } from './graphql/object-type/user.object-type';
+import { UpdateUserDto } from '../dto/user/update-user.dto';
+import { Role } from '../enum/role.enum';
+import { UpdateUserInputType } from '../graphql/input-type/user/update-user.input-type';
+import { UserType } from '../graphql/object-type/user.object-type';
 import { UserService } from './user.service';
 
 @Resolver()

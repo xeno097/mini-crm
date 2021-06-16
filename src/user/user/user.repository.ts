@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserEntity } from './database/user.entity';
-import { UserDto } from './dto/user/user.dto';
-import { CreateUserDto } from './dto/user/create-user.dto';
-import { UpdateUserDto } from './dto/user/update-user.dto';
+import { UserEntity } from '../database/user.entity';
+import { UserDto } from '../dto/user/user.dto';
+import { CreateUserDto } from '../dto/user/create-user.dto';
+import { UpdateUserDto } from '../dto/user/update-user.dto';
 import { queryBuilder } from 'src/shared/function/filter/query-builder.function';
 import { FilterDto } from 'src/shared/dto/filter.dto';
 
