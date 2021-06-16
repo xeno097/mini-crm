@@ -1,17 +1,19 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { JwtPayloadDto } from 'src/auth/dto/jwt-payload.dto';
 import { AuthorizedRoles } from 'src/shared/decorators/authorized-roles.decorator';
+import { GqlJwtPayload } from 'src/shared/decorators/jwt-payload.decorator';
 import {
   filterInputOptions,
   idFieldOptions,
 } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
-import { FilterInput } from 'src/shared/graphql/input-type/filter.input-type';
+import { FilterInputType } from 'src/shared/graphql/input-type/filter.input-type';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
-import { UpdateUserDto } from './dto/user/update-user.dto';
-import { Role } from './enum/role.enum';
-import { UpdateUserInputType } from './graphql/input-type/user/update-user.input-type';
-import { UserType } from './graphql/object-type/user.object-type';
+import { UpdateUserDto } from '../dto/user/update-user.dto';
+import { Role } from '../enum/role.enum';
+import { UpdateUserInputType } from '../graphql/input-type/user/update-user.input-type';
+import { UserType } from '../graphql/object-type/user.object-type';
 import { UserService } from './user.service';
 
 @Resolver()
@@ -34,9 +36,9 @@ export class UserResolver {
   }
 
   @Query(() => [UserType])
-  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
+  @AuthorizedRoles(Role.ADMIN)
   public async getUsers(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput = {},
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
   ): Promise<UserType[]> {
     const [err, users] = await this.userService.getUsers(input);
 
@@ -68,17 +70,46 @@ export class UserResolver {
     return user;
   }
 
-  @Mutation(() => UserType)
-  @AuthorizedRoles(Role.ADMIN)
-  public async deleteUserById(
-    @Args(InputName.ID, idFieldOptions) id: string,
+  // Business Logic
+  @Query(() => UserType)
+  public async getLoggedUser(
+    @GqlJwtPayload() jwtPayloadDto: JwtPayloadDto,
   ): Promise<UserType> {
-    const [err, user] = await this.userService.deleteOneUser({ id });
+    const { id } = jwtPayloadDto;
+    const [err, user] = await this.userService.getOneUser({ id });
 
     if (err) {
       throw err;
     }
 
     return user;
+  }
+
+  @Query(() => [UserType])
+  @AuthorizedRoles(Role.ADMIN, Role.CUSTOMER_CARE)
+  public async getClients(
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
+  ): Promise<UserType[]> {
+    const [err, users] = await this.userService.getClients(input);
+
+    if (err) {
+      throw err;
+    }
+
+    return users;
+  }
+
+  @Query(() => [UserType])
+  @AuthorizedRoles(Role.ADMIN)
+  public async getCustomerCare(
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
+  ): Promise<UserType[]> {
+    const [err, users] = await this.userService.getCustomerCare(input);
+
+    if (err) {
+      throw err;
+    }
+
+    return users;
   }
 }

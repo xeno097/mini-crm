@@ -1,7 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ISignUpInputType } from 'src/auth/interface/input-type/sign-up-input-type.interface';
 
-@InputType()
+const SignUpInputTypeName = 'SignUpInput';
+
+@InputType(SignUpInputTypeName)
 export class SignUpInputType implements ISignUpInputType {
   @Field()
   email: string;

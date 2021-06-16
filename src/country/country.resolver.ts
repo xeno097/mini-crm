@@ -6,7 +6,7 @@ import {
   idFieldOptions,
 } from 'src/shared/graphql/constants.graphql';
 import { InputName } from 'src/shared/graphql/enum/input-name.enum';
-import { FilterInput } from 'src/shared/graphql/input-type/filter.input-type';
+import { FilterInputType } from 'src/shared/graphql/input-type/filter.input-type';
 import { GqlAuthGuard } from 'src/shared/guards/gql-auth.guard';
 import { Role } from 'src/user/enum/role.enum';
 import { CountryService } from './country.service';
@@ -35,7 +35,7 @@ export class CountryResolver {
 
   @Query(() => [CountryType])
   public async getCountries(
-    @Args(InputName.INPUT, filterInputOptions) input: FilterInput,
+    @Args(InputName.INPUT, filterInputOptions) input: FilterInputType,
   ): Promise<CountryType[]> {
     const [err, Countrys] = await this.countryService.getCountries(input);
 

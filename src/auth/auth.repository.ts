@@ -6,9 +6,9 @@ import { AuthEntity } from './database/auth.entity';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
-import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/user/dto/user/create-user.dto';
 import { UserDto } from 'src/user/dto/user/user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthRepository {
@@ -30,14 +30,13 @@ export class AuthRepository {
     return entity;
   }
 
-  public async signUp(signInDto: SignUpDto): Promise<[Error, UserDto]> {
+  public async signUp(signUpDto: SignUpDto): Promise<[Error, UserDto]> {
     const transaction = await this.connection.startSession();
     try {
-      const { email, password, name, lastName, role } = signInDto;
+      transaction.startTransaction();
+      const { email, password, name, lastName, role } = signUpDto;
 
-      const hashedPassword = await this.hashPassword(password);
-
-      const newAuth = new this.authModel({ email, password: hashedPassword });
+      const newAuth = new this.authModel({ email, password });
 
       await newAuth.save({ session: transaction });
 
@@ -53,6 +52,8 @@ export class AuthRepository {
       await newUser.save({ session: transaction });
 
       const res = UserEntity.toDto(newUser);
+
+      await transaction.commitTransaction();
 
       return [null, res];
     } catch (error) {
@@ -104,9 +105,7 @@ export class AuthRepository {
         throw new Error('Unauthorized');
       }
 
-      const hashedPassword = await this.hashPassword(password);
-
-      entityToUpdate.set({ password: hashedPassword });
+      entityToUpdate.set({ password: password });
 
       await entityToUpdate.save();
 
@@ -116,12 +115,6 @@ export class AuthRepository {
     }
   }
 
-  private async hashPassword(password: string): Promise<string> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    return hashedPassword;
-  }
-
   private async comparePassword(
     password: string,
     hashedPassword: string,
@@ -129,5 +122,37 @@ export class AuthRepository {
     const res = await bcrypt.compare(password, hashedPassword);
 
     return res;
+  }
+
+  public async deleteOneUser(
+    getOneEntityDto: Record<string, any>,
+  ): Promise<[Error, UserDto]> {
+    const transaction = await this.connection.startSession();
+    try {
+      transaction.startTransaction();
+      const user = await this.userModel.findOne(getOneEntityDto);
+
+      if (!user) {
+        return [new Error('User not found'), null];
+      }
+
+      await user.delete({ session: transaction });
+
+      await this.authModel.deleteOne(
+        { email: user.email },
+        { session: transaction },
+      );
+
+      const res = UserEntity.toDto(user);
+
+      await transaction.commitTransaction();
+
+      return [null, res];
+    } catch (error) {
+      await transaction.abortTransaction();
+      return [error, null];
+    } finally {
+      transaction.endSession();
+    }
   }
 }
